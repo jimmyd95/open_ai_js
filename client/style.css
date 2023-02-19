@@ -118,6 +118,7 @@ form {
   margin: 0 auto;
   padding: 10px;
   background: #40414F;
+  border-radius: 8px;
 
   display: flex;
   flex-direction: row;
@@ -147,4 +148,6 @@ button {
 form img {
   width: 30px;
   height: 30px;
+
+  margin-top: 8px;
 }
