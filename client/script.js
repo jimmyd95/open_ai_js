@@ -1,14 +1,14 @@
 import bot from './assets/bot.svg';
 import user from './assets/user.svg';
 
-const form = document.querySelector('form');
-const chatContainer = document.querySelector('chat_container');
+const form = document.querySelector('form')
+const chatContainer = document.querySelector('#chat_container')
 
-let loadInterval;
+let loadInterval
 
 // Loading with dots, looks fancy 
 function loader(element){
-  element.textContent = '';
+  element.textContent = ''
 
   loadInterval = setInterval(() => {
     element.textContent += '.';
@@ -40,50 +40,52 @@ function generateUniqueID(){
   const randomNumber = Math.random();
   const hexaString = randomNumber.toString(16)
 
-  return `id-$(timestamp)-$(hexadecimalString)`;
+  return `id-${timestamp}-${hexadecimalString}`;
 }
-
+  
+// the basic convo div sturcture
 function convo(AI, value, uniqueID){
   return(
     `
-      <div class='wrapper ${AI && 'ai'}'>
-        <div class='chat'>
-          <div className='profile>
-            <img
-              src='${AI ? bot : user}'
-              alt='${AI ? 'bot' : user}'
+      <div class="wrapper ${isAi && 'ai'}">
+        <div class="chat">
+          <div class="profile">
+            <img 
+              src=${AI ? bot : user} 
+              alt="${AI ? 'bot' : 'user'}" 
             />
           </div>
-          <div class='message' id=${uniqueID}>${value}</div>
+          <div class="message" id=${uniqueID}>${value}</div>
         </div>
       </div>
     `
   )
 }
 
-const submission = async(e) => {
+// Handles submission and response interaction
+const submission = async (e) => {
   e.preventDefault();
 
   const data = new FormData(form);
 
   // Generate user chat
-  chatContainer.innerHTML += convo(false, data.get('prompt'));
+  chatContainer.innerHTML += convo(false, data.get('prompt'))
 
-  form.reset();
+  form.reset(); // clear space
 
   //Generate bot chat
   const uniqueID = generateUniqueID();
-  chatContainer.innerHTML += convo(true, ' ', uniqueID);
+  chatContainer.innerHTML += convo(true, ' ', uniqueID)
 
-  chatContainer.scrollTop = chatContainer.scrollHeight;
+  chatContainer.scrollTop = chatContainer.scrollHeight
 
-  const messageDiv = document.getElementById(uniqueID);
-
+  const messageDiv = document.getElementById(uniqueID)
+  
   loader(messageDiv)
 }
 
 // Click submit or press enter to send text
-form.addEventListener('submit', submission);
+form.addEventListener('submit', submission)
 form.addEventListener('keyup', (e) => {
   if(e.keyCode === 13){
     submission(e)
