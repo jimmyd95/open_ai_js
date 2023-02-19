@@ -34,20 +34,21 @@ function typer(element, text){
 }
 
 // Make the ID turly unique, timestamp + math-rand string
+// Unique ID will make each element well... unique
 function generateUniqueID(){
 
   const timestamp = Date.now();
   const randomNumber = Math.random();
   const hexaString = randomNumber.toString(16)
 
-  return `id-${timestamp}-${hexadecimalString}`;
+  return `id-${timestamp}-${hexaString}`;
 }
-  
+
 // the basic convo div sturcture
 function convo(AI, value, uniqueID){
   return(
     `
-      <div class="wrapper ${isAi && 'ai'}">
+      <div class="wrapper ${AI && 'ai'}">
         <div class="chat">
           <div class="profile">
             <img 
@@ -61,6 +62,7 @@ function convo(AI, value, uniqueID){
     `
   )
 }
+
 
 // Handles submission and response interaction
 const submission = async (e) => {
@@ -77,10 +79,13 @@ const submission = async (e) => {
   const uniqueID = generateUniqueID();
   chatContainer.innerHTML += convo(true, ' ', uniqueID)
 
+  // scroll down when new text prompts
   chatContainer.scrollTop = chatContainer.scrollHeight
 
+  // assign unique ID
   const messageDiv = document.getElementById(uniqueID)
-  
+
+  // load the div with '...'
   loader(messageDiv)
 }
 
