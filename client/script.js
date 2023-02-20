@@ -11,9 +11,9 @@ function loader(element){
   element.textContent = ''
 
   loadInterval = setInterval(() => {
-    element.textContent += '.';
+    element.textContent += '♥';
 
-    if(element.textContent === '.....'){
+    if(element.textContent === '♥♥♥♥♥'){
       element.textContent = '';
     }
   }, 300);
@@ -89,7 +89,7 @@ const submission = async (e) => {
   loader(messageDiv)
 
   // fetch data from openAI API, create new openAI responses
-  const response = await fetch('http://localhost:7070/', {
+  const response = await fetch ('http://localhost:5000/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const submission = async (e) => {
     const data = await response.json() // get the response from backend
     const parsedData = data.bot.trim()
 
-    typeText(messageDiv, parsedData)
+    typer(messageDiv, parsedData)
   }else{
     const err = await response.text()
 
