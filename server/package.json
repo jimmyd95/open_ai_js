@@ -1,15 +1,14 @@
 {
-  "name": "server",
+  "name": "openAI-pink-server",
   "version": "1.0.0",
-  "description": "",
   "//": "use import instead of regular old required statements",
   "type": "module",
   "scripts": {
     "server": "nodemon server"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Jimmy Ding",
   "license": "ISC",
+
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

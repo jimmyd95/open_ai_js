@@ -25,7 +25,7 @@ function typer(element, text){
 
   let interval = setInterval(() => {
     if(index < text.length){
-      element.innerHTML += text.chartAt(index);
+      element.innerHTML += text.charAt(index);
       index++;
     }else{
       clearInterval(interval)
@@ -88,7 +88,31 @@ const submission = async (e) => {
   // load the div with '...'
   loader(messageDiv)
 
-  //
+  // fetch data from openAI API, create new openAI responses
+  const response = await fetch('http://localhost:7070/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      prompt: data.get('prompt') // where you get the fancy text
+    })
+  })
+
+  clearInterval(loadInterval) // stop the loading animation
+  messageDiv.innerHTML = ' ' // clear the loading dots despite its status
+  
+  if(response.ok){
+    const data = await response.json() // get the response from backend
+    const parsedData = data.bot.trim()
+
+    typeText(messageDiv, parsedData)
+  }else{
+    const err = await response.text()
+
+    messageDiv.innerHTML = 'YOU FOUND THE BUG, FIGURE IT OUT OR YOU DIE'
+    alert(err)
+  }
 }
 
 // Click submit or press enter to send text
