@@ -32,15 +32,22 @@ app.post('/', async(req, res) => {
         const response = await openai.createCompletion({
             // essential settings for openAI
             model: "text-davinci-003",
-            prompt: `${prompt}`,
-            temperature: 0,
-            max_tokens: 3000,
+            prompt: `${prompt}`, // passing the frontend prompt
+            temperature: 0, // higher means more risks 0 - 1
+            max_tokens: 3000, // max 64 - 3000, short to long answers
             top_p: 1,
-            frequency_penalty: 0.5,
-            presence_penalty: 0,
+            frequency_penalty: 0.5, // how often does it repeat itself 0 - 1
+            presence_penalty: 0, // stop or nah
             stop: ["\"\"\""]
         })
-    } catch(error){
 
+        res.status(200).send({
+            bot: response.data.choices[0].text
+        })
+    } catch(error){
+        console.log(error)
+        res.status(500).send({error})
     }
 })
+
+app.listen(5000, () => console.log('server is running on port http://localhost:5000'))
