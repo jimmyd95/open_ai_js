@@ -87,6 +87,8 @@ const submission = async (e) => {
 
   // load the div with '...'
   loader(messageDiv)
+
+  //
 }
 
 // Click submit or press enter to send text
