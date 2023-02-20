@@ -22,3 +22,25 @@ app.get('/', async(req, res) => {
         message:'hello there',
      })
 })
+
+// payload from frontend
+app.post('/', async(req, res) => {
+    try{
+        const prompt = req.body.prompt
+
+        // function that takes object
+        const response = await openai.createCompletion({
+            // essential settings for openAI
+            model: "text-davinci-003",
+            prompt: `${prompt}`,
+            temperature: 0,
+            max_tokens: 3000,
+            top_p: 1,
+            frequency_penalty: 0.5,
+            presence_penalty: 0,
+            stop: ["\"\"\""]
+        })
+    } catch(error){
+
+    }
+})
