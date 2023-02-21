@@ -1,0 +1,3 @@
+Assembled a pink version of the openAI. Might work on it a bit further to adjust for the React and other user friendly customization......
+
+![image](https://user-images.githubusercontent.com/16414366/220221708-2f192666-57f0-4379-aa31-d28bdb6d6728.png)
